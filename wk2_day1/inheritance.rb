@@ -37,11 +37,11 @@ class Bat < Amphibian
   @wings = 2
 end
 
-class Bird < Mammal
+class Bird
   include Flight
 end
 
-class Parrot < Mammal
+class Parrot
   include Flight
 end
 
