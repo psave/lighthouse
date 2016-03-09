@@ -11,8 +11,20 @@ class Unit
     return hp
   end
 
+  def dead?
+    @hp <= 0
+  end
+
   def attack!(enemy)
-    enemy.damage(@ap)
+    if !enemy.dead? && !self.dead?
+      if enemy.instance_of?(Barracks)
+        enemy.damage((@ap/2.0).ceil)
+      else
+        enemy.damage(@ap)
+      end
+    else
+      false
+    end
   end
 
   def damage(ap)

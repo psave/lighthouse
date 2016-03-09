@@ -1,10 +1,13 @@
 class Barracks
 
-  attr_reader :gold, :food
+  attr_reader :gold, :food, :lumber
+  attr_accessor :hp
 
-  def initialize(gold=1000, food=80)
+  def initialize(gold=1000, food=80, hp=500, lumber=500)
     @gold = gold
     @food = food
+    @hp = hp
+    @lumber = lumber
   end
 
   def can_train_footman?
@@ -43,7 +46,13 @@ class Barracks
     end
   end
 
+  # def attack!(enemy)
+  #   enemy.damage(@ap)
+  # end
 
+  def damage(ap)
+    @hp -= ap
+  end
 
 end
 
