@@ -22,38 +22,80 @@ require_relative 'spec_helper'
 describe SiegeEngine do
 
   before :each do
-    @siege_engine = SiegeEngine.new
+    @siege_engine1 = SiegeEngine.new
+    @siege_engine2 = SiegeEngine.new
+    @barracks = Barracks.new
+    @footman = Footman.new
+    @peasant = Peasant.new
   end
 
   it "starts off with 400 gold resources" do
-    expect(@siege_engine.gold).to eq(400)
+    expect(@siege_engine1.gold).to eq(400)
   end
 
   it "starts off with 3 food resources" do
-    expect(@siege_engine.food).to eq(3)
+    expect(@siege_engine1.food).to eq(3)
   end
 
   it "starts off with 400 hit points" do
-    expect(@siege_engine.hp).to eq(400)
+    expect(@siege_engine1.hp).to eq(400)
   end
 
   it "starts off with 60 lumber resources" do
-    expect(@siege_engine.lumber).to eq(60)
+    expect(@siege_engine1.lumber).to eq(60)
   end
 
   it "starts off with 60 lumber resources" do
-    expect(@siege_engine.lumber).to eq(60)
+    expect(@siege_engine1.lumber).to eq(60)
   end
-
-#SiegeEngine can not attack units
 
 #SiegeEngine can not attack footmen, because they are units
+  it "if the enemy is a footman, the seige engine can not attack" do
+    expect(@siege_engine1.can_attack?(@footman)).to eq(false)
+  end
 
 #SiegeEngine can not attack peasants, becaue they are units
-
-# When SiegeEngine can attack Barracks it does 2X damage
+  it "if the enemy is a peasant, the seige engine can not attack" do
+    expect(@siege_engine1.can_attack?(@peasant)).to eq(false)
+  end
 
 #SiegeEngines can attack other SiegeEngines
+  it "if the enemy is another SiegeEngine, the seige engine can attack" do
+    expect(@siege_engine1.can_attack?(@siege_engine2)).to eq(true)
+  end
+
+# When SiegeEngine can attack Barracks it attacks with 2X ap
+  describe "#attack!" do
+    it "should do deal 2X attack power when attacking an enemy Barracks" do
+      expect(@barracks).to receive(:damage).with(100) #should be 2X the number of attack points.
+      @siege_engine1.attack!(@barracks)
+    end
+  end
+
+# When SiegeEngine can attack Barracks it receives 2X the ap of the SiegeEngine
+  describe "#damage" do
+    it "should reduce the barracks's health_points by the attack_power specified" do
+      @barracks.damage(100)
+      expect(@barracks.hp).to eq(400)
+    end
+  end
+
+# When a SiegeEngine attacks another SiegeEngine it attacks with regular ap
+  describe "#attack!" do
+    it "should do deal regular attack power when attacking an enemy SiegeEngine" do
+      expect(@siege_engine2).to receive(:damage).with(50)
+      @siege_engine1.attack!(@siege_engine2)
+    end
+  end
+
+# When a SiegeEngine is attacked another SiegeEngine it recieves damage equal to the regular ap
+# of the attacking SiegeEngine
+  describe "#damage" do
+    it "should reduce the enemy SiegeEngines's health_points by the attack_power specified" do
+      @siege_engine2.damage(50)
+      expect(@siege_engine2.hp).to eq(350)
+    end
+  end
 
 
 end
