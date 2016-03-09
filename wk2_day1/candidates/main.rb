@@ -45,7 +45,6 @@ require './filters'
 def finding_candidates(command)
     flag = true #Sets the flag as true to keep runing through the if statements until it turns false.
     if /find/.match(command)
-      puts " Here is a test "
       user_id = /\d+/.match(command)[0].to_i
       puts find(user_id)
     elsif command == "all"

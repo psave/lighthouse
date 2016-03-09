@@ -46,8 +46,8 @@ class Contact
       end
       #Locates the highest ID
       highest_id = all_ids.max
-      puts "Checking the 'highest_id'"
-      puts highest_id
+      #puts "Checking the 'highest_id'"
+      #puts highest_id
       new_id = highest_id + 1
       return new_id
     end

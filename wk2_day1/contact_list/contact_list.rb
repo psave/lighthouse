@@ -18,11 +18,10 @@ class ContactList
   #   Contact.find_contact_by_id
   # end
   
-  def find_contact_by_id(user_id)
-    puts "this function is not implemented yet"
-    #raise '@candidates must be an Array' if @candidates.nil?
-    CSV.read('contact_list.csv').find { |candidate| candidate[:id] == id}
-  end
+  # def find_contact_by_id(user_id)
+  #   #raise '@candidates must be an Array' if @candidates.nil?
+  #   CSV.read('contact_list.csv').find { |candidate| candidate[:id] == id}
+  # end
 
   def enter_new_contact
     puts "Enter the first and last name of your contact: i.e. Johnny Walker "
